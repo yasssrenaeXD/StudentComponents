@@ -1,3 +1,40 @@
-<p>
-  list works!
-</p>
+<div>
+  <label>Student Number</label><input type="text"[(ngModel)]="studNo"><br>
+  <label>Student First Name</label><input type="text"[(ngModel)]="studFname"><br>
+  <label>Student Last Name</label><input type="text"[(ngModel)]="studLname"><br>
+  <label>Student Program</label><input type="text"[(ngModel)]="studProg"><br>
+  <label>Student Year</label><input type="text"[(ngModel)]="studYr"><br>
+</div>
+<div id="options">
+  <button id="addStudents" (click)="addStudentEntry()">
+    Add Student Entry
+  </button>
+  <button id="listStudent" (click)="listStudent()">
+    List Student
+  </button>
+</div>
+<div>
+  {{ messages }}
+</div>
+<div *ngIf="printing">
+  <table>
+    <thead>
+      <tr>
+        <th>Student Number</th>
+        <th>Student First Name</th>
+        <th>Student Last Name</th>
+        <th>Student Program</th>
+        <th>Student Year</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let studentRecord of StudentCollection">
+        <td>{{ studentRecord.studNumber }}</td>
+        <td>{{ studentRecord.studFirstName }}</td>
+        <td>{{ studentRecord.studLastName }}</td>
+        <td>{{ studentRecord.studProgram }}</td>
+        <td>{{ studentRecord.studYear }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

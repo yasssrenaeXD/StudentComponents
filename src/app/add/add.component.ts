@@ -1,15 +1,70 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-add',
-  templateUrl: './add.component.html',
-  styleUrls: ['./add.component.css']
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
 })
-export class AddComponent implements OnInit {
+export class AddComponent {
+  StudentCollection: Array<object> =[];
+  studentRecord: object;
 
-  constructor() { }
+  studNo: number;
+  studFname: string;
+  studLname: string;
+  studProg: string;
+  studYr: number;
 
-  ngOnInit() {
+  messages= '';
+  printing=false;
+
+  private checkPatterns(value:any, pattern: RegExp): boolean {
+    if(pattern.test(value))
+      return true;
+    else
+      return false;
+  }
+
+  addStudentEntry(): Boolean{
+    this.printing = false;
+    const stringPattern = /^[A-z\s]+$/;
+    const studNumberPattern = /^[0-9]+$/;
+    const stringYearPattern = /^[1-5]+$/;
+
+    if(this.checkPatterns(this.studNo, studNumberPattern)&&
+      this.checkPatterns(this.studFname, stringPattern)&&
+      this.checkPatterns(this.studLname, stringPattern)&&
+      this.checkPatterns(this.studProg, stringPattern)&&
+      this.checkPatterns(this.studYr, stringYearPattern)){
+
+      this.studentRecord={
+        studNumber: this.studNo,
+        studFirstName: this.studFname,
+        studLastName: this.studLname,
+        studProgram: this.studProg,
+        studYear: this.studYr
+      };
+      this.StudentCollection.push(this.studentRecord);
+      console.log(this.StudentCollection);
+      this.messages=null;
+      this.clearValues();
+    } else{
+      this.messages= 'Errors have been encountered and therefore cannot proceed';
+      return false;
+    }
+  }
+
+  listStudent():void{
+    this.printing=true;
+    console.log('Showing stored students');
+  }
+
+  clearValues():void{
+    this.studNo=null;
+    this.studFname=null;
+    this.studLname=null;
+    this.studProg=null;
+    this.studYr=null;
   }
 
 }
